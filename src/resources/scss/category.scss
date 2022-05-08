@@ -1,0 +1,58 @@
+#mySide a
+{
+  position: absolute;
+  left: -80px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 17px;
+  color: black;
+  border-radius: 0 5px 5px 0;
+}
+#mySide a:hover
+{
+  left: 0;
+  opacity: 0.8;
+}
+#C
+{
+  top: 220px;
+  background-color: #DCCB97;
+}
+#U
+{
+  top: 280px;
+  background-color: #FCB38B;
+}
+#D
+{
+  top: 340px;
+  background-color: #8B93FC;
+}
+
+#head-category
+{
+  background-color: black;
+  color: rgb(173, 154, 173);
+  text-align: center;
+}
+#body-category
+{
+  text-align: center;
+}
+
+#M-CA
+{
+  background-color: #8B93FC;
+  width: 15em;
+  border-radius: 2em;
+}
+#N-CA
+{
+  background-color: #DCCB97;
+}
+#M-CA:hover
+{
+  opacity: 0.5;
+}

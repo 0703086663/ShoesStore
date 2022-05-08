@@ -1,0 +1,441 @@
+<div class="container">
+    <h1 class="text-center">Idea Layout</h1>
+
+
+<div class="mt-4 idea-list-page">
+    <ul class="row">
+        <div class="col-3 list-idea">
+                <table id="customers">
+                    <tr>
+                        <th>Most Interactive Idea</th>
+                    </tr>
+                {{#each_upto idea 5}}
+                    <tr>
+                        <td><a href="/idea/{{this.slug}}">{{this.title}}</a></td>
+                    </tr>
+                {{/each_upto}}
+                </table>
+        </div>
+
+        <div style="display: block;" class="col-9 row content-idea">
+            {{#each idea}}
+            <div class="col-12 mt-4">
+                <div class="title-of-idea title-of-idealist idea-count">
+                    <div class="row">
+                        <div class="col-1">
+                            <a href="../user/{{this.username.slug}}">
+                                <span class="avatar-for-idea"><img class="profile-img-idea" src="{{this.username.avatar}}" alt="avatar"></span>
+                            </a>
+                        </div>
+                        <div class="col-9">
+                            <a class="name-idea-owner" href="../user/{{this.username.slug}}">
+                                <b class="username-idealist" style="margin-bottom:0;">{{this.username.username}}</b>
+                            </a>
+                            <p class="date-category-idea">
+                                {{moment this.createdAt format="DD-MM-YYYY on HH:mm"}}
+                                <a href="../category/{{this.categoryName.slug}}">
+                                    <span class="badge badge-pill badge-secondary badge-idea-list">{{this.categoryName.categoryName}}</span>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-2">
+                            {{!-- {{#ifCond this.username._id '==' ../userLogin._id}} --}}
+                            <div class="dropdown-setting-idealist">
+                                <button class="btn-setting-dropdown-idealist">...</button>
+                                <div class="dropdown-content-setting-idealist">
+                                    <a class="button-action-idea" href="" data-toggle="modal" data-target="#delete-idea" data-id="{{this._id}}">
+                                        <i class="fa fa-trash button-info-idea"></i>
+                                    </a>
+                                    <a class="button-action-idea" class="setting-idea-btn" href="/idea/{{this._id}}/edit">
+                                        <i class="fa fa-wrench button-info-idea"></i>
+                                    </a>
+                                    <a href="../idea/{{this.slug}}">
+                                        <i class="fas fa-info-circle button-info-idea"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {{!-- {{else}}
+                            <a href="../idea/{{this.slug}}">
+                                <i class="fas fa-info-circle button-info-idea"></i>
+                            </a>
+                            {{/ifCond}} --}}
+                        </div>
+                    </div>
+
+                    <b class="title-text-idea"><p style="font-size:18px">{{this.title}}</p></b>
+                    <p class="content-text-idea" style="font-size:14px">{{this.detail}}</p>
+                    <p class="file-for-idea"><a id="file-check-{{this._id}}" name="file-check[]" class="file-check" href="../../idea/{{this.file}}">{{this.file}}</a>
+                    </p>
+                    <br>
+                    <hr>
+                    <p id="like-count" class="like-count like-count-idea"><i class="fas fa-heart"></i>
+                        <span id="ratings-{{this._id}}">{{this.ratings}}</span> liked this idea
+                    </p>
+                    <div class="interactive-for-idea row">
+                        <div class="col-4 interactive-icons">
+                                <i class="far fa-thumbs-up like-icon" onclick="actOnIdea(event)" id="like-icon-{{this._id}}" 
+                                    data-post-id="{{this._id }}" interactive="Like"> Like</i>
+                        </div>
+                        <div class="col-4 interactive-icons">
+                            <i class="far fa-thumbs-down unlike-icon" onclick="actOnIdea(event)" id="unlike-icon-{{this._id}}" 
+                                data-post-id="{{this._id }}" interactive="Unlike"> Unlike</i>
+                        </div>
+                        <div class="col-4 interactive-icons">
+                                <i class="far fa-comment" id="comment-show-btn-{{this._id}}"
+                                    onclick="showContentIdea(event)" data-post-id="{{this._id}}"> Comments</i>
+                        </div>
+                    </div>
+                    <div id="comment-idea-{{this._id}}" class="comment-for-idea">
+                        <hr>
+                        {{#comment}}
+                            {{#if annoymous}}
+                                <input id="comment-posted-username" value="Anonymous" class="mt-4" disabled style="display: none;">
+                                <img class="profile-img-for-comment profile-img-for-comment-idealist" src="{{avatar}}" alt="avatar">
+                                    <div class="box-comment">
+                                    <p><b>Anonymous</b><br>{{content}}</p>
+                                    </div>
+                                <div style="margin-left: 32px;"><p style="font-size: 10px; color:rgb(107, 104, 104);">{{moment commentAt format="DD-MM-YYYY on HH:mm"}}</p></div>
+                            {{else}}
+                                <input id="comment-posted-username" value="Name: {{userName}}" class="mt-4" disabled style="display: none;">
+                                <img class="profile-img-for-comment profile-img-for-comment-idealist" src="{{avatar}}" alt="avatar">
+                                    <div class="box-comment">
+                                    <p><b>{{userName}}</b><br>{{content}}</p>
+                                    </div>
+                                <div style="margin-left: 32px;"><p style="font-size: 10px; color:rgb(107, 104, 104);">{{moment commentAt format="DD-MM-YYYY on HH:mm"}}</p></div>
+                            {{/if}}
+                        {{/comment}}
+                        <form action="/idea/{{this._id}}/storeComment?_method=PUT" method="post">
+                            <input class="form-control" type="text" style="" id="comment-user-name" name="userName" value="{{../userLogin.username}}" hidden>
+                            <input class="form-control" type="text" style="" id="comment-user-avatar" name="avatar" value="{{../userLogin.avatar}}" hidden>
+                            <div class="row">
+                            <div class="col-1">
+                                <span><img class="profile-img-input-comment profile-img-input-comment-idealist" src="{{../userLogin.avatar}}" alt="avatar"></span>
+                            </div>
+                            <div class="col-11 write-comment-idealist">
+                                <input class=" input-comment input-comment-idealist" placeholder="Write comment..." type="text" name="content">
+                            </div>
+                            </div>
+                            <p style="font-size: 12px; margin-left:35px">
+                                <input type="checkbox" style="width:10px; height:10px" id="comment-annoymous" value="true" name="annoymous">
+                                Comment as anonymous
+                            </p>
+                            {{!-- ====================== For send email comment HIDDEN form ====================================--}}
+
+                            <input type="" id="comment-idea-id input-comment" name="idea_id" value="{{this._id}}" hidden>
+                            <input class="form-control input-comment" id="comment-date" name="commentAt"hidden>
+                            <input type="text" name="ideaTitle" value="{{this.title}}"hidden>
+                            <input type="text" name="emailReceiver" value="{{this.username.email}}" hidden>
+                            {{!-- ============================================================================ --}}
+                            <input class="input-comment btn btn-success" type="submit" value="Submit" hidden>
+                        </form> 
+                    </div>
+                            
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </ul>
+    <div class="pagination-idea-page">
+        <li class="page-item previous-page disable"><a class="idea-page-link" href="#">Prev</a></li>
+        <li class="page-item current-page active"><a class="idea-page-link" href="#">1</a></li>
+        <li class="page-item dots"><a class="idea-page-link" href="#">...</a></li>
+        <li class="page-item current-page"><a class="idea-page-link" href="#">5</a></li>
+        <li class="page-item current-page"><a class="idea-page-link" href="#">6</a></li>
+        <li class="page-item dots"><a class="idea-page-link" href="#">...</a></li>
+        <li class="page-item current-page"><a class="idea-page-link" href="#">10</a></li>
+        <li class="page-item next-page"><a class="idea-page-link" href="#">Next</a></li>
+    </div>
+</div>
+
+    {{!-- Confirm delete code --}}
+        <div class="modal fade" id="delete-idea" tabindex="-1" role="dialog" aria-labelledby="delete-ideaLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete-ideaLabel">Delete idea</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure to delete this idea?
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-delete-idea" type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+                </div>
+            </div>
+            </div>
+    
+        <form name="delete-idea-form" method="post"></form>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //Assign time now for posting cmt
+            $('input[id="comment-date"]').val(Date.now());//Deadline comment for users
+            var btnReactive = $('.btn-reactive')
+            var inputCmt = $('.input-comment')
+            var deadlineSubmitDate = new Date("{{idea.categoryName.deadlineCmt}}")
+            if ( deadlineSubmitDate <= Date.now()){
+                btnReactive.attr("disabled","disabled")
+                inputCmt.attr("disabled","disabled")
+            }
+
+            //Show or hidden button Delete and Modify
+
+
+            //Delete idea (by owner)
+            var ideaId;
+            var deleteForm = document.forms['delete-idea-form'];
+            $('#delete-idea').on('show.bs.modal', function (idea) {
+            var button = $(idea.relatedTarget)
+            ideaId = button.data('id')
+            })
+            //When delete idea btn clicked
+            var btnDeleteIdea = document.getElementById('btn-delete-idea')
+            btnDeleteIdea.onclick = function(){
+                deleteForm.action = '/idea/' + ideaId + '?_method=DELETE';
+                deleteForm.submit();
+            }
+
+        });
+    </script>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        //=============== REALTIME INTERACTIVE FOR IDEA ==================//
+        // Change number of ratings context
+        
+        var updateIdeaRatings = {
+            Like: function (postId) {
+                var ratings = document.querySelector('#ratings-' + postId).textContent;
+                ratings++
+                document.querySelector('#ratings-' + postId).textContent = ratings
+            },
+            CancelLike: function (postId) {
+                var ratings = document.querySelector('#ratings-' + postId).textContent;
+                ratings--
+                document.querySelector('#ratings-' + postId).textContent = ratings
+            },
+            Unlike: function(postId) {
+                var ratings = document.querySelector('#ratings-' + postId).textContent;
+                ratings--
+                document.querySelector('#ratings-' + postId).textContent = ratings
+            },
+            CancelUnlike: function(postId) {
+                var ratings = document.querySelector('#ratings-' + postId).textContent;
+                ratings++
+                document.querySelector('#ratings-' + postId).textContent = ratings
+            },
+            LikeThenUnlike: function(postId) {
+                var ratings = document.querySelector('#ratings-' + postId).textContent;
+                ratings--;ratings--
+                document.querySelector('#ratings-' + postId).textContent = ratings
+            },
+            UnlikeThenLike: function(postId) {
+                var ratings = document.querySelector('#ratings-' + postId).textContent;
+                ratings++;ratings++
+                document.querySelector('#ratings-' + postId).textContent = ratings
+            }
+        };
+
+        // Modify icon after user rate
+        var toggleButtonIcon = {
+            Like: function(icon, postId) { 
+                icon.setAttribute("class","fa fa-thumbs-up choosen-icon")
+                icon.setAttribute("style","color:rgb(255, 50, 71)")
+                icon.setAttribute("interactive","CancelLike")
+                if($('#unlike-icon-'+postId).hasClass("choosen-icon") || $('#like-icon-'+postId).hasClass("choosen-icon")){
+                    document.getElementById("unlike-icon-"+postId).setAttribute("class","far fa-thumbs-down")
+                    document.getElementById("unlike-icon-"+postId).setAttribute("style","")
+                    document.getElementById("unlike-icon-"+postId).setAttribute("interactive","LikeThenUnlike")
+                }
+            },
+            CancelLike: function(icon, postId) {
+                icon.setAttribute("class","far fa-thumbs-up")
+                icon.removeAttribute("style")
+                if(!$('#like-icon-'+postId).hasClass("choosen-icon")){
+                    icon.setAttribute("interactive","Like")
+                    document.getElementById("unlike-icon-"+postId).setAttribute("interactive","Unlike")
+                }else{
+                    icon.setAttribute("interactive","Like")
+                }
+            },
+            Unlike: function(icon, postId) {
+                icon.setAttribute("class","fa fa-thumbs-down choosen-icon")
+                icon.setAttribute("interactive","CancelUnlike")
+                if($('#like-icon-'+postId).hasClass("choosen-icon") || $('#unlike-icon-'+postId).hasClass("choosen-icon")){
+                    document.getElementById("like-icon-"+postId).setAttribute("class","far fa-thumbs-up")
+                    document.getElementById("like-icon-"+postId).setAttribute("style","")
+                    document.getElementById("like-icon-"+postId).setAttribute("interactive","UnlikeThenLike")
+                }
+            },
+            CancelUnlike: function(icon, postId) {
+                icon.setAttribute("class","far fa-thumbs-down")
+                if(!$('#unlike-icon-'+postId).hasClass("choosen-icon")){
+                    icon.setAttribute("interactive","Unlike")
+                    document.getElementById("like-icon-"+postId).setAttribute("interactive","Like")
+                }else{
+                icon.setAttribute("interactive","Unlike")
+                }
+            },
+            LikeThenUnlike: function(icon, postId) {
+                icon.setAttribute("class","fa fa-thumbs-down choosen-icon")
+                icon.setAttribute("interactive","CancelUnlike")
+                if($('#like-icon-'+postId).hasClass("choosen-icon")){
+                    document.getElementById("like-icon-"+postId).setAttribute("class","far fa-thumbs-up")
+                    document.getElementById("like-icon-"+postId).setAttribute("style","")
+                    document.getElementById("like-icon-"+postId).setAttribute("interactive","UnlikeThenLike")
+                }
+            },
+            UnlikeThenLike: function(icon, postId) {
+                icon.setAttribute("class","fa fa-thumbs-up choosen-icon")
+                icon.setAttribute("style","color:rgb(255, 50, 71)")
+                icon.setAttribute("interactive","CancelLike")
+                if($('#unlike-icon-'+postId).hasClass("choosen-icon")){
+                    document.getElementById("unlike-icon-"+postId).setAttribute("class","far fa-thumbs-down")
+                    document.getElementById("unlike-icon-"+postId).setAttribute("interactive","LikeThenUnlike")
+                }
+            }
+        };
+
+        //Send req to the server for modify ratings of idea
+        var actOnIdea = function (event) {
+            var postId = event.target.dataset.postId;
+            var action = event.target.getAttribute("interactive").trim();
+            toggleButtonIcon[action](event.target, postId);
+            console.log(action)
+            updateIdeaRatings[action](postId);
+            axios.post('/idea/' + postId + '/interactive?_method=PUT', { action: action });
+        };
+
+        // Onclick button Comments to show comments of each idea
+        var showContentIdea = function (){
+            var postId = event.target.dataset.postId
+            var commentIdea = document.getElementById('comment-idea-'+ postId)
+            commentIdea.setAttribute("style", "display:block")
+            var commentShowBtn = document.getElementById('comment-show-btn-'+ postId)
+            commentShowBtn.setAttribute("class", "fa fa-comment")
+        }
+
+            //Check type of file uploaded to import icon 
+            var imgShow = '<img class="idea-img" src="/idea/{{idea.file}}" alt="{{this.title}}" style="width:100%; height:auto;  align-items: center;">'
+            var pdfShow = '<i class="fa fa-file-powerpoint"></i> {{this.file}}'
+            var wordShow = '<i class="fa fa-file-word"></i> {{idea.file}}'
+            var excelShow = '<i class="fa fa-file-xls"></i> {{this.file}}'
+
+            var fileCheck = document.querySelectorAll('.file-check')
+
+            var file;
+            var fileName;
+            var fileLastName;
+            {{!-- for(let i = 0; i < fileCheck.length; i++)
+            {
+                file = fileCheck[i].innerHTML
+                fileName = file.split('.')
+                fileLastName = fileName[fileName.length -1]
+                console.log(fileLastName)
+
+                if (fileLastName == 'doc' || fileLastName == 'docx' || fileLastName == 'txt'){
+                    fileCheck[i].innerHTML = wordShow;
+                }
+                else if (fileLastName == 'xls'){
+                    fileCheck[i].innerHTML = excelShow;
+                }
+                else if (fileLastName == 'jpg' || fileLastName=='jpeg' || fileLastName== 'png' ){
+                    fileCheck[i].getAttribute('href')
+                    fileCheck[i].innerHTML = imgShow;
+                }
+                else if (fileLastName == 'pdf') {
+                    fileCheck[i].innerHTML = pdfShow
+                }
+                else{
+                    fileCheck[i].innerHTML = ''
+                }
+            }
+ --}}
+            
+
+        // Create function page for 5 ideas on 1 page
+        function getPageList(totalPages, page, maxLength) {
+            function range(start, end) {
+                return Array.from(Array(end - start + 1), (_, i) => i + start);
+            }
+
+            var sideWidth = maxLength < 9 ? 1 : 2;
+            var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+            var rightWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+
+            if(totalPages <= maxLength) {
+                return range(1, totalPages);
+            }
+
+            if(page <= maxLength - sideWidth - 1 - rightWidth) {
+                return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages));
+            }
+
+            if(page >= maxLength - sideWidth - 1 - rightWidth) {
+                return range(1,sideWidth).concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
+            }
+
+            return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
+        }
+
+        $(function(){
+            var numberOfItems = $(".content-idea .idea-count").length;
+            var limitPerPage = 5;
+            var totalPages = Math.ceil(numberOfItems / limitPerPage);
+            var paginationSize = 7;
+            var currentPage;
+
+            function showPage(whichPage) {
+                if(whichPage < 1 || whichPage > totalPages) return false;
+
+                currentPage = whichPage;
+
+                $(".content-idea .idea-count").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
+
+                $(".pagination-idea-page li").slice(1, -1).remove();
+
+                getPageList(totalPages, currentPage, paginationSize).forEach(item => {
+                    $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots")
+                    .toggleClass("active", item === currentPage).append($("<a>").addClass("idea-page-link")
+                    .attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
+                });
+
+                $(".previous-page").toggleClass("disable", currentPage === 1);
+                $(".next-page").toggleClass("disable", currentPage === totalPages);
+                return true;
+            }
+
+            $(".pagination-idea-page").append(
+                $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("idea-page-link").attr({href: "javascript:void(0)"}).text("Prev")),
+                $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("idea-page-link").attr({href: "javascript:void(0)"}).text("Next")),
+                
+            );
+
+            $(".content-idea").show();
+            showPage(1);
+
+            $(document).on("click", ".pagination-idea-page li.current-page:not(.active)", function(){
+                window.scrollTo(0, 0);
+                return showPage(+$(this).text());
+            });
+
+            $(".next-page").on("click", function(){
+                window.scrollTo(0, 0);
+                return showPage(currentPage + 1);
+            });
+
+            $(".previous-page").on("click", function(){
+                window.scrollTo(0, 0);
+                return showPage(currentPage - 1);
+            });
+
+        });
+        
+    </script>
+
+</div>

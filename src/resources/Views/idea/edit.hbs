@@ -1,0 +1,39 @@
+<div class="container">
+  <h1 class="text-center">Edit idea page</h1> 
+<div class="mt-4 ml-4">
+  {{!-- enctype="multipart/form-data" --}}
+<form action="/idea/{{idea._id}}?_method=PUT" method="post">
+  <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" value="{{idea.title}}" id="title" name="title" placeholder="Enter title"> 
+      </div>
+      <div class="form-group">
+        <label for="detail">Detail</label>
+        <textarea class="form-control" id="detail" name="detail" >{{idea.detail}}</textarea>
+      </div>
+      <div hidden class="form-group">
+        <label for="categoryName">CategoryName</label>
+        <input type="text" class="form-control" value="{{idea.categoryName}}" id="categoryName" name="categoryName" placeholder="Enter categoryName"> 
+      </div>
+      <div hidden class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" value="{{idea.username}}" id="username" name="username" placeholder="Enter author"> 
+      </div>
+      <div class="form-group">
+        <label for="createdAt">Create at</label>
+        <input disabled type="text" class="form-control" value="{{idea.createdAt}}" id="createdAt" name="createdAt" placeholder="Enter createdAt"> 
+      </div>
+      <div class="form-group">
+        <label for="updatedAt">Updated at</label>
+        <input disabled type="text" class="form-control" value="{{idea.updatedAt}}" id="updatedAt" name="updatedAt" placeholder="Enter updatedAt"> 
+      </div> 
+      <div hidden class="form-group">
+        <label for="slug">slug</label>
+        <input type="text" class="form-control" value="{{idea.slug}}" id="slug" name="slug" placeholder="Enter slug"> 
+      </div>
+  <input class="btn btn-secondary" type="submit" value="Edit">
+</form>
+</div>
+
+
+</div>

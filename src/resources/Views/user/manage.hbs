@@ -1,0 +1,188 @@
+<h1 class="text-center">Manage user</h1>
+<a href="/user/trash"><i class="fa fa-trash"></i> Deleted users </a>
+(Total deleted user: {{deletedCount}})
+
+<form name="container-form" action="/user/handle-form-actions" method="POST">
+    <div class="mt-4 d-flex align-items-center">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+            <label class="form-check-label" for="checkbox-all">
+                Select all users
+            </label>
+        </div>
+
+        <select class="checkbox-select-all-options" name="action" required>
+            <option value="delete">Delete</option>
+        </select>
+
+        
+        <button value="Do action" type="button" class="btn btn-primary disabled check-all-submit-btn">
+            Do action
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table mt-4">
+        <thead>
+            <tr>
+                <th><a href="/user/create"><button type="button"class="btn btn-secondary">Create</button></a></th>
+                <th scope="col">Total:{{storedCount}}</th>
+                <th scope="col">Name</th>
+                <th scope="col">UserName</th>
+                <th scope="col">Email</th> 
+                <th scope="col">Workplace</th>
+                <th scope="col">Role</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each user}}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="userIds[]" value="{{this._id}}" >
+                        </label>
+                    </div>
+                </td>
+            <th scope="row">{{sum @index 1}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.username}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.workplace}}</td>
+            <td>{{this.role}}</td>
+            <td>{{moment this.createdAt format="HH:mm on DD-MM-YYYY"}}</td>
+            <td style="padding:5px">
+                <a href="/user/{{this._id}}/edit"><button type="button" class="btn btn-secondary">Edit</button></a>
+                <a href="/user/{{this.slug}}"><button type="button" class="btn btn-secondary">Detail</button></a>
+                <a href="" data-toggle="modal" data-target="#delete-user" data-id="{{this._id}}"><button class="btn btn-secondary">Delete</button></a>
+            </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="10" class="text-center">
+                    You have not created any user.
+                    <a href="/user/create">Create new one?</a>
+                </td>
+            </tr>
+
+            {{/each}}
+        </tbody>
+        </table>
+    </div>
+    {{!-- Confirm delete code --}}
+    <div class="modal fade" id="delete-user" tabindex="-1" role="dialog" aria-labelledby="delete-userLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete-userLabel">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-user" type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Delete multiple users model confirm -->
+        <div class="modal fade" id="delete-multiple-users" tabindex="-1" role="dialog" aria-labelledby="delete-multiple-users" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete-multiple-usersLabel">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to <b>delete</b> these users?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-small disabled delete-multiple-users-btn">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
+</form>
+        {{!-- Delete form hidden --}}
+        <form name="delete-user-form" method="post"></form>
+
+        <script>
+            //WHEN HTML DOM is loaded, Delete confirm shows
+            document.addEventListener('DOMContentLoaded', function(){
+                var userId;
+                var deleteForm = document.forms['delete-user-form'];
+                var checkboxAll = $('#checkbox-all');
+                var userItemCheckBox = $('input[name="userIds[]"]');
+                var deleteMultipleUsersBtn = $('.delete-multiple-users-btn');
+                var containerForm = document.forms['container-form'];
+                var checkAllSubmitBtn = $('.check-all-submit-btn');
+
+                $('#delete-user').on('show.bs.modal', function (user) {
+                var button = $(user.relatedTarget)
+                userId = button.data('id')
+                })
+
+                //When delete user btn clicked
+                var btnDeleteUser = document.getElementById('btn-delete-user')
+                btnDeleteUser.onclick = function(){
+                    deleteForm.action = '/user/' + userId + '?_method=DELETE';
+                    deleteForm.submit();
+                }
+
+                //Checkbox all clicked
+                checkboxAll.change(function () {
+                    var isCheckedAll = $(this).prop('checked');
+                        userItemCheckBox.prop('checked', isCheckedAll);
+                        renderCheckAllSubmitBtn();
+                });
+
+                userItemCheckBox.change(function () {
+                    var isCheckedAll = userItemCheckBox.length === $('input[name="userIds[]"]:checked').length;
+                    checkboxAll.prop('checked', isCheckedAll);
+                    renderCheckAllSubmitBtn();
+                })
+
+                //Check all submit btn clicked not submit
+                deleteMultipleUsersBtn.on('submit', function (e) {
+                    var isSubmittable = !$(this).hasClass('disable');
+                    if(!isSubmittable){
+                        e.preventDefault();
+                    }
+                })
+
+                checkAllSubmitBtn.on('change', function (e) {
+                    var isSubmittable = !$(this).hasClass('disable');
+                    if(isSubmittable){
+                        e.preventDefault();
+                        console.log('123')
+                    }
+                })
+                
+
+                //Re-render check all submit button <Go>
+                function renderCheckAllSubmitBtn() {
+                    var checkedCount = $('input[name="userIds[]"]:checked').length;
+                    if(checkedCount > 0){
+                        deleteMultipleUsersBtn.removeClass('disabled');
+                        checkAllSubmitBtn.removeClass('disabled');
+                        checkAllSubmitBtn.attr("data-toggle","modal");
+                        checkAllSubmitBtn.attr("data-target","#delete-multiple-users");
+                    } else{
+                        deleteMultipleUsersBtn.addClass('disabled');
+                        checkAllSubmitBtn.addClass('disabled');
+                        checkAllSubmitBtn.attr("data-toggle","");
+                        checkAllSubmitBtn.attr("data-target","");
+                    }
+                }
+                
+            })
+        </script>

@@ -1,0 +1,50 @@
+#h1-create-category,
+#create-name,
+#create-box,
+#create-button
+{
+  text-align: center;
+  line-height: 2em;
+}
+
+#create_back
+{
+  text-align: center;
+  padding: 0.2em 3em;
+  border-radius: 2em;
+  background-color: black;
+  color: lightpink;
+  cursor: pointer;
+}
+#create_back :hover
+{
+  opacity: 0.85;
+}
+
+#create-all
+{
+  margin: 0.3% auto 2% auto;
+  border: 1em solid rgb(238, 217, 217);
+  width: 60%;
+  border-radius: 5em;
+}
+#box-text,
+#box-date-submit,
+#box-date-Cmt
+{
+  width: 70%;
+  border-radius: 1em;
+}
+
+#box-sub-but
+{
+  padding: 0.2em 3em;
+  border-radius: 2em;
+  background-color: black;
+  color: lightpink;
+  cursor: pointer;
+}
+#box-sub-but:hover
+{
+  opacity: 0.85;
+}

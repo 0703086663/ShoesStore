@@ -1,0 +1,253 @@
+.title-of-idea {
+  background-color: #fff;
+  border: solid rgb(218, 213, 213);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.title-of-idea p {
+  margin-bottom: 0;
+}
+.title-of-idea .avatar-for-idea {
+  margin-left:8px;
+}
+.title-of-idea .col-sm-10{
+  padding-left: 5px;
+}
+.profile-img-idea {
+  width: 35px;
+  border-radius: 20px;
+}
+.profile-img-for-comment {
+  width: 30px;
+  border-radius: 20px;
+  margin-top: -25px;
+}
+.profile-img-input-comment {
+  width: 40px;
+  border-radius: 20px;
+  margin-top: -5px;
+}
+.comment-for-idea {
+  margin-top: 10px;
+}
+.comment-for-idea p {
+  padding-left: 10px;
+}
+.interactive-for-idea {
+  display: flex;
+  justify-content: space-between;
+}
+.like-unlike-btn {
+  margin-left: 5px;
+}
+.show-content-of-idea {
+  margin-right: 5px;
+}
+.show-content-of-idea p {
+  cursor: pointer;
+}
+.show-content-of-idea p:hover {
+  opacity: 0.6;
+  text-decoration: underline;
+}
+.comment-for-idea {
+  background-color: #fff;
+  border-radius: 10px;
+  display: none;
+}
+.comment-for-idea input {
+  border: none;
+  border-radius: 20px;
+}
+.input-comment {
+  width: 95%;
+  padding: 6px 20px;
+  display: inline;
+  background-color: rgba(0, 0, 0, 0.13);
+}
+.icon-detail-showidea{
+  margin-left:40px
+}
+.input-comment-idea{
+  margin-left:-45px;
+}
+.comment-for-idea ::placeholder {
+  color: rgb(51, 48, 48);
+}
+.box-comment {
+  background-color: rgba(0, 0, 0, 0.08);
+  display: inline-block;
+  border-radius: 10px;
+  width: fit-content;
+}
+.box-comment p {
+  padding-right: 10px;
+}
+
+.title-of-idea form {
+  padding-top: 10px;
+}
+
+@media only screen and (min-width: 1201px) {
+  .button-info-idea {
+    margin-left: 30px;
+  }
+
+  .name-date-category-owner {
+    margin-right: 20px;
+  }
+}
+@media only screen and (min-width: 1024px) and (max-width: 1200px){
+  .img-comment-idea{
+    margin-left:0;
+  }
+  .comment-as-anonymous{
+    padding-left: 0;
+  }
+  .input-comment-idea{
+    margin-left: -28px;
+  }
+  .icon-detail-showidea{
+    margin-left: 25px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .img-comment-idea{
+    margin-left:0;
+    max-width: 70px;
+  }
+  .input-comment-idea{
+    margin-left: -28px;
+    max-width: 625px;
+  }
+  .icon-detail-showidea{
+    margin-left: 4px;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  .img-comment-idea{
+    margin-left:0;
+    max-width: 70px;
+  }
+  .input-comment-idea{
+    margin-left: -28px;
+    max-width: 90%;
+  }
+  .icon-detail-showidea{
+    margin-left: -20px;
+  }
+}
+
+//reponsive for mobile
+@media only screen and (min-width: 321px) and (max-width: 599px) {
+  .title-of-idea b{
+    font-size: 12px;
+  }
+
+  .title-of-idea .col-sm-10{
+    max-width: 70%;
+  }
+
+  .title-of-idea .profile-img-idea{
+    width: 30px;
+    margin-top: 5px;
+  }
+
+  .title-of-idea p{
+    font-size: 14px;
+  }
+
+  .interactive-icons{
+    font-size: 12px;
+  }
+
+  .box-comment p{
+    font-size: 12px;
+  }
+
+  .title-of-idea b {
+    font-size: 10px;
+  }
+
+  .input-comment{
+    font-size: 12px;
+  }
+
+  .profile-img-input-comment{
+    width: 30px;
+    margin-top: 0;
+  }
+
+  .img-comment-idea{
+    max-width: 0;
+  }
+
+  .input-comment-idea {
+    margin-left: 3px;
+    max-width: 85%;
+}
+
+}
+
+
+@media only screen  and (max-width:320px){
+  .title-of-idea b{
+    font-size: 10px;
+  }
+  .title-of-idea .col-sm-10{
+    max-width: 85%;
+    padding: 0;
+    padding-left: 5px;
+  }
+  .title-of-idea .profile-img-idea{
+    width: 30px;
+    margin-top: 5px;
+  }
+  .title-of-idea .avatar-for-idea{
+    margin-left: 2px;
+  }
+  .interactive-icons{
+    font-size: 10px;
+  }
+
+
+  .box-comment p{
+    font-size: 12px;
+  }
+
+  .title-of-idea b {
+    font-size: 10px;
+  }
+
+  .input-comment{
+    font-size: 12px;
+  }
+
+  .profile-img-input-comment{
+    width: 30px;
+    margin-top: 0;
+  }
+
+  .img-comment-idea{
+    max-width: 0;
+  }
+
+  .input-comment-idea {
+    margin-left: 3px;
+    max-width: 85%;
+  }
+  .like-count {
+    font-size: 9px;
+  }
+  .title-of-idea {
+    width: 116%;
+    margin-left: -5%;
+  }
+  .comment-as-anonymous{
+    font-size: 10px;
+  }
+}
+  
+

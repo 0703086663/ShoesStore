@@ -1,0 +1,79 @@
+//Tao file CSS rieng
+@import "header.scss";
+@import "footer.scss";
+@import "login.scss";
+@import "index.scss";
+@import "register.scss";
+@import "detail.scss";
+@import "event.scss";
+@import "eventscreates.scss";
+@import "manage-event.scss";
+@import "news.scss";
+@import "category.scss";
+@import "createcategory.scss";
+@import "editcategory.scss";
+@import "managecategory.scss";
+@import "showcategory.scss";
+@import "trashcategory.scss";
+@import "contact.scss";
+@import "grid.scss";
+@import "error.scss";
+@import "idea.scss";
+@import "showidea.scss";
+
+//
+body li {
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background-color: black;
+  border: rgb(255, 50, 71);
+}
+
+.btn-secondary:hover {
+  background-color: rgb(131, 142, 202);
+}
+
+.checkbox-select-all-options {
+  width: 20%;
+  margin: 0px 16px;
+  padding: 9px 10px;
+  border-radius: 5px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 739px) {
+  .checkbox-select-all-options {
+    width: 30%;
+  }
+}
+
+table tr:nth-child(2n) {
+  background: lightgrey;
+}
+
+
+@media only screen and (max-width:320px){
+  .list-idea{
+    display: none;
+  }
+  .title-of-idealist{
+    width: 202%;
+    margin-left: -17%;
+  }
+  .title-of-idealist .col-9{
+    margin-left: 3px;
+  }
+  .title-of-idealist .col-9{
+    margin-left: 10px;
+    max-width: 62%;
+  }
+  .title-of-idealist .username-idealist{
+    font-size: 10px;
+  }
+  .write-comment-idealist{
+    margin-left: 27px;
+    max-width: 74%;
+  }
+}

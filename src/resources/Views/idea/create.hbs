@@ -1,0 +1,95 @@
+
+{{!-- ================================================================================================= --}}
+<div class="container create-idea">
+  <h1 class="text-center">Create new idea</h1> 
+  <div class="mt-4">
+  <form action="/idea/store" method="post" enctype="multipart/form-data" id="idea-form">
+        <div class="form-group">
+          <label for="title">Idea title</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required> 
+        </div>
+        <div class="form-group">
+          <label for="detail">Idea detail</label>
+          <textarea type="text" class="form-control" id="detail" name="detail" placeholder="Enter detail" required></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-1 col-md-2 col-sm-1" style="margin-top:5px;">
+            Category 
+          </div>
+          <div class="col-lg-8 col-md-5 col-sm-11">
+            <select name="categoryName" id="category-select" class="form-control">
+              {{#if category.categoryName}}
+                <option value="{{category._id}}" selected>{{category.categoryName}}</option>
+                <option disabled>──────────</option>
+              {{/if}}
+              {{#categoryList}}
+                <option id="category-deadline" 
+                  deadline="{{moment this.deadlineSubmit format="HH:mm on DD-MM-YYYY"}}"
+                  value="{{this._id}}">{{this.categoryName}}
+                </option>
+              {{/categoryList}}
+            </select>
+          </div>
+          <div class="col-lg-3 col-md-5 col-sm-12">
+            <p style="color:red; margin-top:5px; font-size:18px">Deadline: 
+              <span id="deadline-submit"></span>
+            </p>
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <input type="file" name="file" class="form-upload validate[upload]"
+            data-file-accept="pdf, doc, docx, xls, csv, txt, rtf, html, zip, jpg, jpeg, png, gif" 
+            data-file-maxsize="10240" data-component="fileupload">
+        </div>
+        <div class="form-group" hidden>
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" value="{{userLogin._id}}" required> 
+        </div>
+        <div class="form-group" hidden>
+          <label for="author">Auhor</label>
+          <input type="text" class="form-control" id="author" name="author" value="{{userLogin.username}}" required> 
+        </div>
+        <div class="row">
+            <div class="col-0.5" style="margin-left:15px">
+             <span class="avatar-for-idea"><img class="profile-img-idea" src="{{userLogin.avatar}}" alt="avatar"></span>
+            </div>
+            <div class="col-11.5">
+             <b style="margin-bottom:0; padding-left:5px;">{{userLogin.username}}</b>
+             <p style="font-size: 10px; color:rgb(107, 104, 104); padding-left:5px;">{{dateNow}}</p>
+            </div>
+          <input type="submit" class="btn btn-secondary btn-block btn-submit" value="Submit">
+        </div>
+    </form>
+    </div>
+  </div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+  //For deadline of submit idea
+    $(document).ready(function () {
+
+      var btnSubmit = $('.btn-submit')
+      var deadlineSubmitDate = new Date("{{category.deadlineSubmit}}")
+      //Deadline comment for users
+      if ( deadlineSubmitDate <= Date.now()){
+          btnSubmit.attr("disabled","disabled")
+          btnSubmit.attr("class","btn btn-secondary")
+      };
+
+      //Define the default value of deadline 
+      var deadlineSubmit = "{{moment category.deadlineSubmit format='HH:mm on DD-MM-YYYY'}}"
+      document.getElementById("deadline-submit").innerHTML = deadlineSubmit
+    });
+
+
+    //Import date submit for users easily choose
+    var categorySelect = $('#category-select')
+    categorySelect.on('change', function (){
+      var categoryChoosen = $('option:selected', this).attr('deadline')
+      document.getElementById("deadline-submit").innerHTML = categoryChoosen
+      console.log(document.getElementById("deadline-submit").innerHTML)
+    })
+</script>

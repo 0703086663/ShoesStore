@@ -1,0 +1,300 @@
+.list-idea a {
+  color: black;
+}
+#customers {
+  border-collapse: collapse;
+  width: 20%;
+  position: fixed;
+  left: 2%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+.title-of-idea .col-9{
+  margin-left: -15px;
+}
+.title-text-idea p{
+  margin-left: 8px;
+}
+.content-text-idea{
+  margin-left: 8px;
+}
+.like-count-idea{
+  margin-left: 8px;
+}
+.file-for-idea{
+  margin-left: 8px;
+}
+.profile-img-for-comment-idealist{
+  margin-left: 8px;
+}
+.profile-img-input-comment-idealist{
+  margin-left: 8px;
+}
+.input-comment-idealist{
+  margin-left:-15px;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: rgb(255, 50, 71);
+  color: white;
+}
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+}
+@media only screen and (min-width: 320px) and (max-width: 739px) {
+}
+@media only screen and (min-width: 320px) and (max-width: 738px) {
+}
+
+.pagination-idea-page {
+  text-align: center;
+  margin: 32px 0 32px;
+  user-select: none;
+}
+
+.pagination-idea-page li {
+  display: inline-block;
+  margin: 5px;
+}
+
+.pagination-idea-page li a {
+  color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  line-height: 45px;
+}
+
+.previous-page,
+.next-page {
+  background: rgb(255, 50, 71);
+  width: 80px;
+  border-radius: 45px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.previous-page:hover {
+  transform: translateX(-5px);
+}
+
+.next-page:hover {
+  transform: translateX(5px);
+}
+
+.current-page,
+.dots {
+  background-color: #ccc;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.active {
+  background: rgb(255, 50, 71);
+}
+
+.disable {
+  background-color: #ccc;
+}
+
+.interactive-for-idea button:focus {
+  border: none;
+  outline: none;
+}
+
+//Create idea page
+.create-idea {
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+}
+
+.badge-idea-list {
+  font-size: 12px;
+}
+
+.badge-idea-list:hover {
+  background-color: rgb(255, 50, 71);
+}
+
+.button-info-idea {
+  font-size: 25px;
+  color: black;
+}
+
+.button-info-idea:hover {
+  color: rgb(255, 50, 71);
+}
+
+.fa-heart {
+  color: red;
+}
+
+.like-count {
+  font-size: 12px;
+}
+
+.date-category-idea {
+  font-size: 10px;
+  color: rgb(107, 104, 104);
+}
+
+.name-idea-owner b {
+  color: black;
+}
+
+.name-idea-owner b:hover {
+  color: rgb(255, 50, 71);
+  text-decoration: none;
+}
+
+.title-of-idea hr,
+.idea-list-page hr {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.interactive-icons {
+  text-align: center;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-setting-idealist {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-setting-dropdown-idealist{
+  background-color: rgb(255, 255, 255);
+  border:none;
+  color: black;
+  padding: 0;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  cursor: pointer;
+}
+.dropdown-content-setting-idealist a {
+  color: black;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  margin-left: -32%;
+}
+.dropdown-content-setting-idealist{
+  border-radius: 10px;
+  display: none;
+  position: absolute;
+  background-color: #f3f2f2fa;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+  z-index: 1;
+  left: -35px;
+  
+}
+.dropdown-setting-idealist:hover .dropdown-content-setting-idealist{
+  display: block;
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1200px){
+  .title-of-idealist{
+    width: 115%;
+    margin-left: -7%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+ .list-idea{
+   display: none;
+ }
+ .title-of-idealist{
+  width: 155%;
+  margin-left: -5%;
+ }
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  .list-idea{
+    display: none;
+  }
+  .title-of-idealist{
+    width: 166%;
+    margin-left: -9%;
+  }
+  .title-of-idealist .col-9{
+    margin-left: -1px;
+  }
+  .write-comment-idealist{
+    margin-left: 20px;
+    max-width: 82%;
+  }
+}
+
+//reponsive for mobile
+@media only screen and (min-width: 321px) and (max-width: 599px) {
+  .list-idea{
+    display: none;
+  }
+  .title-of-idealist{
+    width: 180%;
+    margin-left: -12%;
+  }
+  .title-of-idealist .col-9{
+    margin-left: 12px;
+    max-width: 68%;
+  }
+  .title-of-idealist .username-idealist{
+    font-size: 12px;
+  }
+  .write-comment-idealist{
+    margin-left: 27px;
+    max-width: 82%;
+  }
+}
+
+
+@media only screen and (max-width:320px){
+  .list-idea{
+    display: none;
+  }
+  .title-of-idealist{
+    width: 202%;
+    margin-left: -17%;
+  }
+  .title-of-idealist .col-9{
+    margin-left: 3px;
+  }
+  .title-of-idealist .col-9{
+    margin-left: 10px;
+    max-width: 62%;
+  }
+  .title-of-idealist .username-idealist{
+    font-size: 12px;
+  }
+  .write-comment-idealist{
+    margin-left: 27px;
+    max-width: 82%;
+  }
+}
+  
+
+
+

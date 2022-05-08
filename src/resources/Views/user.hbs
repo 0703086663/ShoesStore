@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <h1 class="text-center">User in fearOG</h1>
+
+<div class="mt-4">
+    <div class="row">
+        {{#each user}}
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            
+        <div class="card mt-4" style="width: 18rem;">
+            <img class="card-img-top" src="{{this.avatar}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{this.username}}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Role: {{this.role}}</li>
+                <li class="list-group-item">Place: {{this.workplace}}</li>
+            </ul>
+                <a href="/user/{{this.slug}}" class="card-link">
+                    <button class="btn btn-block btn-secondary">User Detail</button>
+                </a>
+        </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+</div>
